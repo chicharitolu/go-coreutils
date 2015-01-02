@@ -1,26 +1,53 @@
 package main
 
 import (
+	"crypto/md5"
   "fmt"
 	"flag"
+	"io/ioutil"
+	"os"
 )
 
 func main(){
   help_flag := flag.Bool("help", false, "help flag")
 	version_flag := flag.Bool("version", false, "version")
 	check_flag := flag.Bool("check", false, "check")
-	quiet_flag := flag.Bool("quiet", false, "quiet")
-	warn_flag := flag.Bool("warn", false, "warn")
-	status_flag := flag.Bool("status", false, "status")
-	
+//	quiet_flag := flag.Bool("quiet", false, "quiet")
+//	warn_flag := flag.Bool("warn", false, "warn")
+//	status_flag := flag.Bool("status", false, "status")
 	
 	flag.Parse()
 	
 	if *help_flag {
 		usage()
+		os.Exit(0)
 	}
 	if *version_flag {
 		version()
+		os.Exit(0)
+	}
+
+	if !*check_flag {
+		checksum()
+	}
+	
+}
+
+func checksum() {
+	if flag.NArg() > 0 {
+		for _, file := range flag.Args() {
+			buf, err := ioutil.ReadFile(file)
+			if err != nil {
+				fmt.Printf("md5sum: cannot read '%s': %s\n", file, err)
+			}
+			fmt.Printf("%x %s\n", md5.Sum(buf), file)
+		}
+	} else {
+		buf, err := ioutil.ReadAll(os.Stdin)
+		if err != nil {
+			fmt.Printf("md5sum: cannot read 'STDIN': %s\n", err)
+		}
+		fmt.Printf("%x -\n", md5.Sum(buf))
 	}
 }
 
