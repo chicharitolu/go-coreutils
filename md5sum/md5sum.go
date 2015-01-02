@@ -8,6 +8,12 @@ import (
 func main(){
   help_flag := flag.Bool("help", false, "help flag")
 	version_flag := flag.Bool("version", false, "version")
+	check_flag := flag.Bool("check", false, "check")
+	quiet_flag := flag.Bool("quiet", false, "quiet")
+	warn_flag := flag.Bool("warn", false, "warn")
+	status_flag := flag.Bool("status", false, "status")
+	
+	
 	flag.Parse()
 	
 	if *help_flag {
