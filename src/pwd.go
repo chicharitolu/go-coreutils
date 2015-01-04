@@ -26,20 +26,20 @@ func main() {
 		os.Exit(0)
 	}
 	if *p_flag || *physical_flag {
-		physical_path()
+		physical_getwd()
 	} else if *l_flag || *logical_flag {
-		logical_path()
+		logical_getwd()
 	}
 
-	physical_path()
+	physical_getwd()
 }
 
-func logical_path() {
+func logical_getwd() {
 	pwd := os.Getenv("PWD")
 	fmt.Print(pwd + "\n")
 	os.Exit(0)
 	}
-func physical_path() {
+func physical_getwd() {
 	pwd, err := os.Getwd()
 	if err != nil {
 		usage()
