@@ -1,3 +1,4 @@
+# fileutils
 cp
 ls
 mkdir
@@ -8,3 +9,5 @@ mv
 pwd
 rm
 rmdir
+# sh-utils
+# textutils
